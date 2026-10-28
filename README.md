@@ -1,22 +1,23 @@
-# mareomni — creative portfolio
+# mareomni — Marilyn
 
-A cinematic first draft for Marilyn's portfolio. Plain HTML, CSS, and JavaScript; no build step.
+A personal portfolio with a dreamy illustrated bedroom, four short films, a café promo, Substack writing, and an interactive video topic map. Plain HTML, CSS, and JavaScript; no build step.
 
 ## Preview
 
-Serve this folder with any static web server, for example `python3 -m http.server 4173`, then visit http://localhost:4173.
+Serve this folder with a static web server, for example `python3 -m http.server 4173`, then visit http://localhost:4173.
 
 ## Editing
 
-- `app.js`: selected films, caption-based working titles, theme categories, Instagram links, and map behavior.
-- `style.css`: responsive layout, color palette, and typography.
-- `index.html`: page structure and copy.
-- `assets/`: exported covers from @mareomni and original AI-generated atmospheric concept artwork (`atmosphere.jpg`). The concept artwork is not a film still.
+- `index.html`: page layout and copy.
+- `style.css`: responsive styles and TV positioning within the bedroom artwork.
+- `app.js`: films, video entries, article previews, TV channels, and topic filtering.
+- `media/bedroom.jpg`: original AI-generated illustration based on the owner's supplied mood references.
+- `media/`: H.264/AAC MP4 copies of the five supplied original videos. Source MOV files remain untouched.
 
-## Content notes
+The TV defaults to “I thought it would feel different,” plays muted in a loop, and has a pause button. Selecting a channel changes the film. Reduced-motion preferences disable automatic playback. Clicking the TV or a film opens a native video player with sound controls. The café promo also plays directly. Other video entries still link to Instagram.
 
-Profile captions for all 34 visible posts were reviewed on October 28, 2026; this is a curated selection, not a complete video transcript analysis. The archive includes three identified cinematic shorts and a provisional fourth selection, “Time is a limited allowance,” labeled as a video reflection. Confirm the intended fourth short film and official titles before launch. Editorial titles and theme categories are derived from captions.
+The writing section lists all six articles visible in the Substack archive on October 28, 2026. Previews use published subtitles where present and opening excerpts otherwise. Article links open the originals. The displayed film titles are caption-based working titles.
 
-Video viewers use Instagram embeds with direct original links as a fallback. Instagram may require sign-in or prevent embedding. No videos or music have been rehosted. Google Fonts supplies the typefaces, with system fallbacks.
+Contact: marecupcake@gmail.com
 
-This draft has not been published as a public website.
+This is a preview draft; no public deployment has been created.
