@@ -79,3 +79,12 @@ button.transmission{width:100%;text-align:left;color:inherit;background:none}.tv
 .icon-play{display:block;width:17px;height:17px;fill:currentColor;pointer-events:none}.tv-play .icon-play{width:18px;height:18px}.play span{color:#ecebdb;padding-left:3px}
 @media(max-width:600px){header nav[aria-label="Main navigation"] a[href="#atlas"]{display:inline-flex}header nav[aria-label="Main navigation"]{gap:13px;align-items:center}header nav[aria-label="Main navigation"] a{min-height:44px;align-items:center}header .contact{white-space:nowrap}}
 @media(max-width:350px){header nav[aria-label="Main navigation"]{gap:10px;font-size:10px}header .wordmark{font-size:20px}}
+
+/* One navigation group keeps every label on the same centerline and gap. */
+header nav[aria-label="Main navigation"]{display:flex;align-items:center;gap:30px}
+header nav[aria-label="Main navigation"] a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;line-height:1.2;white-space:nowrap}
+header nav[aria-label="Main navigation"] .contact{font:inherit;gap:8px}
+header nav[aria-label="Main navigation"] .contact span{display:inline-flex;margin-left:0}
+@media(max-width:900px){header nav[aria-label="Main navigation"]{gap:22px}}
+@media(max-width:600px){header nav[aria-label="Main navigation"]{gap:13px;font-size:11px}header nav[aria-label="Main navigation"] a[href="#transmissions"]{display:none}header nav[aria-label="Main navigation"] .contact span{display:none}}
+@media(max-width:350px){header nav[aria-label="Main navigation"]{gap:10px;font-size:10px}}
