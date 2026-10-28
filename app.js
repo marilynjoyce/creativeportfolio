@@ -60,7 +60,7 @@ dialog.addEventListener('click',event=>{
 films.forEach((film,i)=>{
   const button=document.createElement('button');button.className='film-card';button.setAttribute('aria-label',`Watch ${film.title}`);
   const cover=document.createElement('div');cover.className='film-cover';cover.append(makeThumbnail(film,'film-poster'));
-  const play=document.createElement('span');play.className='play';play.innerHTML='<span aria-hidden="true">▶</span>';
+  const play=document.createElement('span');play.className='play';play.innerHTML='<span aria-hidden="true"><svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 5 11 7-11 7Z"/></svg></span>';
   const number=document.createElement('span');number.className='film-number mono';number.textContent=`0${i+1} / SHORT FILM`;cover.append(play,number);
   const caption=document.createElement('div');caption.className='film-caption';
   const details=document.createElement('div'),title=document.createElement('h3'),tags=document.createElement('p'),arrow=document.createElement('span');

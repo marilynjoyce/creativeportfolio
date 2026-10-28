@@ -74,3 +74,8 @@ button.transmission{width:100%;text-align:left;color:inherit;background:none}.tv
 }
 @media(max-width:600px) and (max-height:700px){.room-intro{top:88px;bottom:20px}.room-intro h1{font-size:52px}.room-intro p{font-size:11px}.room-intro .room-links{gap:6px}.room-links a,.room-links a:last-child{padding:8px 10px}}
 @media(prefers-reduced-motion:reduce){.article.paper-sheet,.paper-sheet h3,.paper-read{transition:none!important}.article.paper-sheet:hover,.paper-sheet:focus-visible{transform:translateY(var(--paper-shift)) rotate(var(--paper-turn))}}
+
+/* Keep phone navigation and film controls consistent with desktop. */
+.icon-play{display:block;width:17px;height:17px;fill:currentColor;pointer-events:none}.tv-play .icon-play{width:18px;height:18px}.play span{color:#ecebdb;padding-left:3px}
+@media(max-width:600px){header nav[aria-label="Main navigation"] a[href="#atlas"]{display:inline-flex}header nav[aria-label="Main navigation"]{gap:13px;align-items:center}header nav[aria-label="Main navigation"] a{min-height:44px;align-items:center}header .contact{white-space:nowrap}}
+@media(max-width:350px){header nav[aria-label="Main navigation"]{gap:10px;font-size:10px}header .wordmark{font-size:20px}}
