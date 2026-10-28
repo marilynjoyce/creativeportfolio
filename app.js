@@ -8,6 +8,10 @@ const films = filmIds.map(id => workById.get(id));
 const tagName = id => topics.find(t => t.id === id)?.name || works.flatMap(w => w.tags).find(t => t.id === id)?.name || id;
 const image = work => work.img ? `assets/${work.img}.jpg` : null;
 const mediumIcons = {films:'▸',commentary:'↗',music:'♪',gaming:'✳',projects:'⌘',writing:'≡'};
+function arrowIcon(direction='out') {
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('aria-hidden','true');svg.setAttribute('focusable','false');svg.classList.add('icon-arrow');
+  const path=document.createElementNS(svg.namespaceURI,'path');path.setAttribute('d',direction==='down'?'M12 4v16m-7-7 7 7 7-7':'M5 19 19 5M5 5h14v14');svg.append(path);return svg;
+}
 const sourceNames = {instagram:'Instagram',tiktok:'TikTok',substack:'Substack'};
 const state = {territory:null, topic:null, medium:'all', search:'', limit:12};
 let currentFilm = 2, resumeRoomAfterDialog = false;
@@ -37,7 +41,7 @@ function openWork(work) {
   else {player.src=work.source==='tiktok'?`https://www.tiktok.com/player/v1/${work.tiktokId}?autoplay=1`:`https://www.instagram.com/p/${work.id}/embed/`;player.title=work.title;player.allow='autoplay; encrypted-media; fullscreen';player.setAttribute('allowfullscreen','');}
   $('#embed-slot').replaceChildren(player);
   $('#original-link').href=work.url;
-  $('#original-link').textContent=`open original on ${sourceNames[work.source]} ↗`;
+  $('#original-link').replaceChildren(`open original on ${sourceNames[work.source]} `,arrowIcon());
   $('.embed-note').hidden=!!work.video;
   if(!dialog.open){const room=$('#room-video');resumeRoomAfterDialog=!room.paused;room.pause();dialog.showModal();document.body.style.overflow='hidden';}
 }
@@ -60,7 +64,7 @@ films.forEach((film,i)=>{
   const number=document.createElement('span');number.className='film-number mono';number.textContent=`0${i+1} / SHORT FILM`;cover.append(play,number);
   const caption=document.createElement('div');caption.className='film-caption';
   const details=document.createElement('div'),title=document.createElement('h3'),tags=document.createElement('p'),arrow=document.createElement('span');
-  title.textContent=film.title;tags.className='mono';tags.textContent=film.tags.slice(0,3).map(t=>t.name).join(' / ');arrow.textContent='↗';
+  title.textContent=film.title;tags.className='mono';tags.textContent=film.tags.slice(0,3).map(t=>t.name).join(' / ');arrow.append(arrowIcon());
   details.append(title,tags);caption.append(details,arrow);button.append(cover,caption);button.onclick=()=>openWork(film);$('#film-grid').append(button);
 });
 
@@ -83,11 +87,18 @@ $('#room-video').addEventListener('play',updateTVControl);$('#room-video').addEv
 reducedMotion.addEventListener('change',()=>{if(reducedMotion.matches)$('#room-video').pause();});
 setTV(2);
 
-// Writing previews use the published subtitles, or opening excerpts when absent.
-works.filter(w=>w.source==='substack').forEach(work=>{
-  const link=document.createElement('a');link.className='article';link.href=work.url;link.target='_blank';link.rel='noopener';
-  const date=document.createElement('p'),title=document.createElement('h3'),subtitle=document.createElement('p'),arrow=document.createElement('span');
-  date.className='mono';date.textContent=work.date;title.textContent=work.title;subtitle.className='article-subtitle';subtitle.textContent=work.description;arrow.className='article-arrow';arrow.textContent='↗';link.append(date,title,subtitle,arrow);$('#article-list').append(link);
+// Reuse the published titles, dates, subtitles, and excerpts without rewriting them.
+works.filter(w=>w.source==='substack').forEach((work,index)=>{
+  const link=document.createElement('a');link.className='article paper-sheet';link.href=work.url;link.target='_blank';link.rel='noopener';
+  const masthead=document.createElement('div');masthead.className='paper-masthead';
+  const date=document.createElement('time');date.className='mono';date.textContent=work.date;
+  const parsedDate=new Date(work.date);if(!Number.isNaN(parsedDate.valueOf()))date.dateTime=parsedDate.toISOString().slice(0,10);
+  const note=document.createElement('span');note.className='paper-note';note.textContent=String(index+1).padStart(2,'0');note.setAttribute('aria-hidden','true');
+  masthead.append(date,note);
+  const title=document.createElement('h3');title.textContent=work.title;
+  const excerpt=document.createElement('p');excerpt.className='article-subtitle';excerpt.textContent=work.description;
+  const read=document.createElement('span');read.className='paper-read';read.append('read ',arrowIcon());
+  link.append(masthead,title,excerpt,read);$('#article-list').append(link);
 });
 
 function filteredWorks(){
@@ -105,11 +116,11 @@ function renderCollection(items){
     const details=document.createElement('span');details.className='work-body';const title=document.createElement('span');title.className='work-title';title.textContent=work.title;
     const tags=document.createElement('span');tags.className='work-tags';tags.textContent=work.tags.map(t=>t.name).join(' · ');details.append(title,tags);main.append(details);
     const meta=document.createElement('span');meta.className='work-medium mono';meta.textContent=work.medium==='films'?'film':work.medium;
-    const source=document.createElement('a');source.className='work-source';source.href=work.url;source.target='_blank';source.rel='noopener';source.textContent=sourceNames[work.source]+' ↗';source.setAttribute('aria-label',work.title+' on '+sourceNames[work.source]);
+    const source=document.createElement('a');source.className='work-source';source.href=work.url;source.target='_blank';source.rel='noopener';source.append(sourceNames[work.source]+' ',arrowIcon());source.setAttribute('aria-label',work.title+' on '+sourceNames[work.source]);
     row.append(main,meta,source);list.append(row);
   }
   if(!items.length){const empty=document.createElement('div');empty.className='empty-work';empty.textContent='nothing here with those filters. try another combination.';list.append(empty);}
-  $('#show-more').hidden=items.length<=state.limit;$('#show-more').textContent=`show more (${items.length-state.limit} left) ↓`;
+  $('#show-more').hidden=items.length<=state.limit;$('#show-more').replaceChildren(`show more (${items.length-state.limit} left) `,arrowIcon('down'));
   const selection=state.topic?tagName(state.topic):state.territory?territoryById.get(state.territory).name:'all topics';
   $('#result-count').textContent=`${items.length} ${items.length===1?'piece':'pieces'} / ${selection}`;
   $('#clear-filters').hidden=!state.topic&&!state.territory&&state.medium==='all'&&!state.search;
