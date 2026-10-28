@@ -27,3 +27,7 @@ The TV defaults to a muted loop of “I thought it would feel different,” with
 Substack, TikTok, Instagram, email, and Linktree are available on the opening scene. Contact: marecupcake@gmail.com.
 
 This remains a preview draft; no public deployment or merge has been performed.
+
+## Room and writing presentation
+
+On phones the illustrated room fills the viewport, with the TV aligned to its artwork and social links at the bottom. All interface arrows are lightweight SVGs to avoid platform emoji rendering. Writing reuses the six published entries as cream paper previews, with a featured essay and restrained desktop overlap; mobile uses a readable vertical stack. Paper transitions respect reduced motion. The About section uses the owner’s supplied copy.
